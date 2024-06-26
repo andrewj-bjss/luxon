@@ -172,6 +172,38 @@ test("DateTime#set({ localWeekNumber }) sets the date to the same weekday of the
   expect(modified.millisecond).toBe(123);
 });
 
+test("DateTime#set({ localWeekNumber }) handles week 53 correctly in a 53-week year (en-US)", () => {
+  const modified = DateTime.local(2022, 12, 28, 9, 23, 54, 123, { locale: "en-US" }).set({
+    localWeekNumber: 53,
+    localWeekday: 1,
+  });
+  expect(modified.localWeekNumber).toBe(53);
+  expect(modified.localWeekday).toBe(1);
+  expect(modified.year).toBe(2022);
+  expect(modified.month).toBe(12);
+  expect(modified.day).toBe(25);
+  expect(modified.hour).toBe(9);
+  expect(modified.minute).toBe(23);
+  expect(modified.second).toBe(54);
+  expect(modified.millisecond).toBe(123);
+});
+
+test("DateTime#set({ localWeekNumber }) handles week 53 correctly in a 53-week year (en-GB)", () => {
+  const modified = DateTime.local(2020, 12, 28, 9, 23, 54, 123, { locale: "en-GB" }).set({
+    localWeekNumber: 53,
+    localWeekday: 1,
+  });
+  expect(modified.localWeekNumber).toBe(53);
+  expect(modified.localWeekday).toBe(1);
+  expect(modified.year).toBe(2020);
+  expect(modified.month).toBe(12);
+  expect(modified.day).toBe(28);
+  expect(modified.hour).toBe(9);
+  expect(modified.minute).toBe(23);
+  expect(modified.second).toBe(54);
+  expect(modified.millisecond).toBe(123);
+});
+
 test("DateTime#set({ localWeekYear }) sets the date to the same weekNumber/weekday of the target weekYear (en-US)", () => {
   const modified = dt.reconfigure({ locale: "en-US" }).set({ localWeekYear: 2017 });
   expect(modified.localWeekday).toBe(3); // still tuesday
