@@ -131,21 +131,6 @@ test("DateTime#set({ localWeekday }) handles crossing over into the previous yea
   expect(modified.millisecond).toBe(123);
 });
 
-test("DateTime#set({ localWeekday }) handles crossing over into the previous year", () => {
-  const modified = DateTime.local(2022, 1, 1, 9, 23, 54, 123, { locale: "en-US" }).set({
-    localWeekday: 2,
-  });
-  expect(modified.localWeekday).toBe(2);
-  expect(modified.weekday).toBe(1);
-  expect(modified.year).toBe(2021);
-  expect(modified.month).toBe(12);
-  expect(modified.day).toBe(27);
-  expect(modified.hour).toBe(9);
-  expect(modified.minute).toBe(23);
-  expect(modified.second).toBe(54);
-  expect(modified.millisecond).toBe(123);
-});
-
 test("DateTime#set({ localWeekNumber }) sets the date to the same weekday of the target weekNumber (en-US)", () => {
   const modified = dt.reconfigure({ locale: "en-US" }).set({ localWeekNumber: 2 });
   expect(modified.weekday).toBe(2); // still tuesday
