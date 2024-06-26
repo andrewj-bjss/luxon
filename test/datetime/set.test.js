@@ -116,7 +116,7 @@ test("DateTime#set({ localWeekday }) sets the weekday to this week's matching da
   expect(modified.millisecond).toBe(123);
 });
 
-test("DateTime#set({ localWeekday }) handles crossing over into the previous year", () => {
+test("DateTime#set({ localWeekday }) handles crossing over into the previous year on the locale (en-US)", () => {
   const modified = DateTime.local(2022, 1, 1, 9, 23, 54, 123, { locale: "en-US" }).set({
     localWeekday: 2,
   });
@@ -125,6 +125,21 @@ test("DateTime#set({ localWeekday }) handles crossing over into the previous yea
   expect(modified.year).toBe(2021);
   expect(modified.month).toBe(12);
   expect(modified.day).toBe(27);
+  expect(modified.hour).toBe(9);
+  expect(modified.minute).toBe(23);
+  expect(modified.second).toBe(54);
+  expect(modified.millisecond).toBe(123);
+});
+
+test("DateTime#set({ localWeekday }) handles crossing over into the previous year on the locale (de-DE)", () => {
+  const modified = DateTime.local(2022, 1, 1, 9, 23, 54, 123, { locale: "de-DE" }).set({
+    localWeekday: 2,
+  });
+  expect(modified.localWeekday).toBe(2);
+  expect(modified.weekday).toBe(2);
+  expect(modified.year).toBe(2021);
+  expect(modified.month).toBe(12);
+  expect(modified.day).toBe(28);
   expect(modified.hour).toBe(9);
   expect(modified.minute).toBe(23);
   expect(modified.second).toBe(54);
